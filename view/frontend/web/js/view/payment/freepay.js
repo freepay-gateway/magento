@@ -11,7 +11,7 @@ define(
         rendererList.push(
             {
                 type: 'freepay_gateway',
-                component: 'freepay_gateway/js/view/payment/method-renderer/freepay'
+                component: 'FreePay_Gateway/js/view/payment/method-renderer/freepay'
             }
         );
 
