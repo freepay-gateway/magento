@@ -1,3 +1,2 @@
 # magento
-
-Payment plugin for Magento 2
+Payment gateway module for Magento 2

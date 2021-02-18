@@ -1,0 +1,25 @@
+{
+  "name": "freepay/magento2",
+  "description": "Implements integration with the FreePay payment gateway.",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Freepay",
+      "email": "udviklere@freepay.dk"
+    }
+  ],
+  "keywords": ["magento", "freepay", "payment", "gateway", "magento2"],
+  "homepage": "https://freepay.dk",
+  "type": "magento2-module",
+  "license": [
+    "GPL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "FreePay\\Gateway\\": ""
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.freepay-logo {
+    height: 25px;
+    margin-left: 5px;
+}
+.modal-popup._show .modal-inner-wrap {
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: auto;
+    top:50%;
+}

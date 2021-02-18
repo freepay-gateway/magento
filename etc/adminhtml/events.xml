@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_shipment_save_after">
+        <observer name="freepay_capture_after_shipment" instance="FreePay\Gateway\Observer\CaptureOrderShipmentAfter" />
+    </event>
+    <event name="sales_order_invoice_pay">
+        <observer name="freepay_capture_after_invoice" instance="FreePay\Gateway\Observer\CaptureOrderInvoiceAfter" />
+    </event>
+    <event name="order_cancel_after">
+        <observer name="freepay_order_cancel_after" instance="FreePay\Gateway\Observer\CancelOrderAfter" />
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="freepay_send_payment_email" instance="FreePay\Gateway\Observer\SendPaymentEmail" />
+    </event>
+</config>

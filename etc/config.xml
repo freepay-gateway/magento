@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <freepay_gateway>
+                <model>FreePay\Gateway\Model\Payment</model>
+                <title>FreePay Payment</title>
+                <active>1</active>
+                <order_status>pending_payment</order_status>
+                <sort_order>1</sort_order>
+                <sendmailorderconfirmation>1</sendmailorderconfirmation>
+                <sendmailorderconfirmationbefore>0</sendmailorderconfirmationbefore>
+                <handlestock>1</handlestock>
+                <allowspecific>0</allowspecific>
+                
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_refund>1</can_refund>
+                <apikey backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </freepay_gateway>
+        </payment>
+    </default>
+</config>
