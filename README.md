@@ -1,3 +1,3 @@
 # magento
 
-Payment pplugin for Magento 2
+Payment plugin for Magento 2
