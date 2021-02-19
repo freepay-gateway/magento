@@ -10,7 +10,7 @@ final class ConfigProvider implements ConfigProviderInterface
 {
     const CODE = 'freepay_gateway';
 
-    const XML_PATH_CARD_LOGO = 'payment/freepay_gateway/cardlogos';
+    const XML_PATH_CARD_LOGO = 'payment/FreePay_Gateway/cardlogos';
 
     protected $scopeConfig;
 
@@ -50,7 +50,7 @@ final class ConfigProvider implements ConfigProviderInterface
         if(count($cards)) {
             foreach ($cards as $card) {
                 if($card) {
-                    $items[] = $this->assetRepo->getUrl("freepay_gateway::images/logo/{$card}.png");
+                    $items[] = $this->assetRepo->getUrl("FreePay_Gateway::images/logo/{$card}.png");
                 }
             }
         }
