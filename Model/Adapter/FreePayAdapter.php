@@ -118,7 +118,7 @@ class FreePayAdapter
     {
         try {
             $response = [];
-            $this->logger->debug('CREATE PAYMENT');
+            $this->logger->debug('CREATE PAYMENT!');
 
             $order_id = $order->getIncrementId();
 
@@ -127,32 +127,31 @@ class FreePayAdapter
 
             $form = array(
                 'OrderNumber'		=> $order_id,
-                'CustomerAcceptUrl'	=> $this->url->getUrl('quickpaygateway/payment/returns') . '&order_id=' . $order_id,
-                'CustomerDeclineUrl'=> $this->url->getUrl('quickpaygateway/payment/cancel') . '&order_id=' . $order_id,
+                'CustomerAcceptUrl'	=> $this->url->getUrl('quickpaygateway/payment/returns') . '?order_id=' . $order_id,
+                'CustomerDeclineUrl'=> $this->url->getUrl('quickpaygateway/payment/cancel') . '?order_id=' . $order_id,
                 'Amount'			=> round($order->getTotalDue(), 2) * 100,
                 'EnforceLanguage'   => $this->getLanguage(),
                 'Currency'          => $order->getOrderCurrency()->ToString(),
-                'ServerCallbackUrl'	=> $this->url->getUrl('quickpaygateway/payment/callback') . '&order_id=' . $order_id,
+                'ServerCallbackUrl'	=> $this->url->getUrl('quickpaygateway/payment/callback') . '?order_id=' . $order_id,
                 'SaveCard'          => false,
                 'BillingAddress'  	=> array(
                     'AddressLine1'		=> $billingAddress->getStreetLine(1),
                     'AddressLine2'		=> $billingAddress->getStreetLine(2),
                     'City'				=> $billingAddress->getCity(),
                     'PostCode'			=> $billingAddress->getPostcode(),
-                    'Country'			=> $billingAddress->getCountryId(),
+                    'Country'			=> \FreePay\Gateway\Helper\FreePayCom::convertCountryAlphas2ToNumber($billingAddress->getCountryId()),
                 ),
                 'ShippingAddress' 	=> array(
                     'AddressLine1'		=> $shippingAddress->getStreetLine(1),
                     'AddressLine2'		=> $shippingAddress->getStreetLine(2),
                     'City'				=> $shippingAddress->getCity(),
                     'PostCode'			=> $shippingAddress->getPostcode(),
-                    'Country'			=> $shippingAddress->getCountryId(),
+                    'Country'			=> \FreePay\Gateway\Helper\FreePayCom::convertCountryAlphas2ToNumber($shippingAddress->getCountryId()),
                 ),
             );
 
-            $linkResult = $this->client->link($form);
-
-            $this->logger->debug(json_encode($linkResult));
+            $linkResult = json_decode($this->client->link($form));
+            $this->logger->debug(var_export($linkResult, true));
 
             $paymentLinkUrl = $linkResult['paymentWindowLink'];
 
