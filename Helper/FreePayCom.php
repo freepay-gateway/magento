@@ -23,8 +23,11 @@ class FreePayCom extends AbstractHelper
 
     protected $api_url;
 
+    protected $dir;
+
     public function __construct(
         \Psr\Log\LoggerInterface $logger,
+        \Magento\Framework\App\Filesystem\DirectoryList $dir,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
     ){
         $this->logger = $logger;
@@ -33,6 +36,7 @@ class FreePayCom extends AbstractHelper
         $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
         $this->api_key = $this->scopeConfig->getValue(self::API_KEY_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $this->api_url = 'https://mw.freepay.dk/api/authorization/';
+        $this->dir = $dir;
     }
 
     public function link($form)

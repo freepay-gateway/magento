@@ -10,7 +10,7 @@ final class ConfigProvider implements ConfigProviderInterface
 {
     const CODE = 'freepay_gateway';
 
-    const XML_PATH_CARD_LOGO = 'payment/FreePay_Gateway/cardlogos';
+    const XML_PATH_CARD_LOGO = 'payment/freepay_gateway/cardlogos';
 
     protected $scopeConfig;
 
