@@ -38,7 +38,6 @@ class FreePayCom extends AbstractHelper
         $this->dir = $dir;
 
         $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
-        $this->logger->debug('Com init');
     }
 
     public function link($form)

@@ -127,12 +127,12 @@ class FreePayAdapter
 
             $form = array(
                 'OrderNumber'		=> $order_id,
-                'CustomerAcceptUrl'	=> $this->url->getUrl('quickpaygateway/payment/returns') . '?order_id=' . $order_id,
-                'CustomerDeclineUrl'=> $this->url->getUrl('quickpaygateway/payment/cancel') . '?order_id=' . $order_id,
+                'CustomerAcceptUrl'	=> $this->url->getUrl('freepaygateway/payment/returns') . '?order_id=' . $order_id,
+                'CustomerDeclineUrl'=> $this->url->getUrl('freepaygateway/payment/cancel') . '?order_id=' . $order_id,
                 'Amount'			=> round($order->getTotalDue(), 2) * 100,
                 'EnforceLanguage'   => $this->getLanguage(),
                 'Currency'          => $order->getOrderCurrency()->ToString(),
-                'ServerCallbackUrl'	=> $this->url->getUrl('quickpaygateway/payment/callback') . '?order_id=' . $order_id,
+                'ServerCallbackUrl'	=> $this->url->getUrl('freepaygateway/payment/callback') . '?order_id=' . $order_id,
                 'SaveCard'          => false,
                 'BillingAddress'  	=> array(
                     'AddressLine1'		=> $billingAddress->getStreetLine(1),
@@ -151,9 +151,7 @@ class FreePayAdapter
             );
 
             $linkResult = json_decode($this->client->link($form));
-            $this->logger->debug(var_export($linkResult, true));
-
-            $paymentLinkUrl = $linkResult['paymentWindowLink'];
+            $paymentLinkUrl = $linkResult->paymentWindowLink;
 
             $response['url'] = $paymentLinkUrl;
 
@@ -172,15 +170,15 @@ class FreePayAdapter
      * @param array $attributes
      * @return array|bool
      */
-    public function capture($order, $transaction, $ammount)
+    public function capture($order, $transaction, $amount)
     {
         $this->logger->debug("Capture payment");
 
         $form = [
-            'amount' => round($ammount, 2) * 100,
+            'Amount' => round($amount, 2) * 100,
         ];
 
-        $this->client->post("{$transaction}/capture", $form);
+        $this->client->post($order->getPayment()->getLastTransId()."/capture", json_encode($form));
 
         return $this;
     }
@@ -193,7 +191,7 @@ class FreePayAdapter
      */
     public function cancel($order, $transaction)
     {
-        $this->client->delete("{$transaction}");
+        $this->client->delete($order->getPayment()->getLastTransId());
         
         return $this;
     }
@@ -204,15 +202,15 @@ class FreePayAdapter
      * @param array $attributes
      * @return array|bool
      */
-    public function refund($order, $transaction, $ammount)
+    public function refund($order, $transaction, $amount)
     {
         $this->logger->debug("Refund payment");
 
         $form = [
-            'amount' => round($ammount, 2) * 100,
+            'Amount' => (int)(round($amount, 2) * 100),
         ];
 
-        $this->client->request->post("{$transaction}/credit", $form);
+        $this->client->post(str_replace(['-capture', '-refund'], ['', ''], $order->getPayment()->getParentTransactionId())."/credit", json_encode($form));
 
         return $this;
     }

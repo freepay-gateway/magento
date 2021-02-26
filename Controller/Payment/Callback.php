@@ -112,9 +112,7 @@ class Callback extends \Magento\Framework\App\Action\Action
         $body = $this->getRequest()->getContent();
         try {
             parse_str($body, $response);
-            $this->logger->debug(json_encode($response));
-
-            $order = $this->order->loadByIncrementId($response['order_id']);
+            $order = $this->order->loadByIncrementId((int)$_GET["order_id"]);
 
             if($order->getId()) {
                 if($order->getState() == \Magento\Sales\Model\Order::STATE_PROCESSING){
@@ -122,7 +120,7 @@ class Callback extends \Magento\Framework\App\Action\Action
                 }
             }
             else {
-                $this->logger->debug('Failed to load order with id: ' . $response['order_id']);
+                $this->logger->debug('Failed to load order with id: ' . (int)$_GET['order_id']);
                 return;
             }
 
@@ -137,9 +135,14 @@ class Callback extends \Magento\Framework\App\Action\Action
 
             $info = json_decode($this->client->get($transactionId));
 
+            if((int)$info->OrderID != $order->getId()) {
+                $this->logger->debug('OrderID mismatch');
+                return;
+            }
+
             $cardType = '';
 
-            switch($info['CardType']) {
+            switch($info->CardType) {
                 case -1:
                     $cardType = 'Unknown';
                     break;
@@ -197,15 +200,15 @@ class Callback extends \Magento\Framework\App\Action\Action
             }
 
             $payment->setCcType($cardType);
-            $payment->setCcLast4($info['MaskedPan']);
-            $payment->setCcExpMonth(explode('/', $info['CardExpiryDate'][0]));
-            $payment->setCcExpYear(explode('/', $info['CardExpiryDate'])[1]);
+            $payment->setCcLast4($info->MaskedPan);
+            $payment->setCcExpMonth(substr($info->CardExpiryDate, 2, 2));
+            $payment->setCcExpYear('20'.substr($info->CardExpiryDate, 0, 2));
 
             $payment->setAdditionalInformation('Transaction ID', $response['authorizationIdentifier']);
             $payment->setAdditionalInformation('Card Type', $cardType);
-            $payment->setAdditionalInformation('Card Number', $info['MaskedPan']);
-            $payment->setAdditionalInformation('Card Expiration Date', date('Y-m', strtotime(explode('/', $info['CardExpiryDate'])[0].'-'.explode('/', $info['CardExpiryDate'])[1])));
-            $payment->setAdditionalInformation('Currency', $info['Currency']);
+            $payment->setAdditionalInformation('Card Number', $info->MaskedPan);
+            $payment->setAdditionalInformation('Card Expiration Date', date('Y-m', strtotime('01-'.substr($info->CardExpiryDate, 2, 2).'-'.'20'.substr($info->CardExpiryDate, 0, 2))));
+            $payment->setAdditionalInformation('Currency', $info->Currency);
 
             //Set order to processing
             $stateProcessing = \Magento\Sales\Model\Order::STATE_PROCESSING;
