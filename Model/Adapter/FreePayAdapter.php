@@ -71,6 +71,8 @@ class FreePayAdapter
 
     protected $client;
 
+    protected $productMetadata;
+
     /**
      * FreePayAdapter constructor.
      *
@@ -90,7 +92,8 @@ class FreePayAdapter
         ResourceInterface $moduleResource,
         DirectoryList $dir,
         Item $taxItem,
-        \FreePay\Gateway\Helper\FreePayCom $comHelper
+        \FreePay\Gateway\Helper\FreePayCom $comHelper,
+        \Magento\Framework\App\ProductMetadataInterface $productMetadata
     )
     {
         $this->logger = $logger;
@@ -104,6 +107,7 @@ class FreePayAdapter
         $this->dir = $dir;
         $this->taxItem = $taxItem;
         $this->client = $comHelper;
+        $this->productMetadata = $productMetadata;
 
         $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
     }
@@ -124,6 +128,8 @@ class FreePayAdapter
 
             $billingAddress = $order->getBillingAddress();
             $shippingAddress = $order->getShippingAddress();
+
+            $version = $this->productMetadata->getVersion();
 
             $form = array(
                 'OrderNumber'		=> $order_id,
@@ -147,6 +153,24 @@ class FreePayAdapter
                     'City'				=> $shippingAddress->getCity(),
                     'PostCode'			=> $shippingAddress->getPostcode(),
                     'Country'			=> \FreePay\Gateway\Helper\FreePayCom::convertCountryAlphas2ToNumber($shippingAddress->getCountryId()),
+                ),
+                'Client'				=> array(
+                    'CMS'				=> array(
+                        'Name'			=> "Magento",
+                        'Version'		=> $version
+                    ),
+                    'Shop'				=> array(
+                        'Name'			=> "Magento",
+                        'Version'		=> $version
+                    ),
+                    'Plugin'			=> array(
+                        'Name'			=> "Freepay",
+                        'Version'		=> $this->moduleResource->getDbVersion('FreePay_Gateway')
+                    ),
+                    'API'   			=> array(
+                        'Name'			=> "Freepay",
+                        'Version'		=> '1.0'
+                    ),
                 ),
             );
 
