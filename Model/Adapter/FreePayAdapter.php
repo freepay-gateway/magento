@@ -19,6 +19,8 @@ use Magento\Sales\Model\ResourceModel\Order\Tax\Item;
  */
 class FreePayAdapter
 {
+    const TEST_MODE_XML_PATH      = 'payment/freepay_gateway/test_mode';
+    
     /**
      * @var LoggerInterface
      */
@@ -173,6 +175,10 @@ class FreePayAdapter
                     ),
                 ),
             );
+
+            if($this->scopeConfig->getValue(self::TEST_MODE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
+                $form["Options"] = array("TestMode" => true);
+            }
 
             $linkResult = json_decode($this->client->link($form));
             $paymentLinkUrl = $linkResult->paymentWindowLink;
