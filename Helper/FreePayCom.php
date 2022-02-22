@@ -2,6 +2,7 @@
 
 namespace FreePay\Gateway\Helper;
 
+use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
 
@@ -37,7 +38,11 @@ class FreePayCom extends AbstractHelper
         $this->api_url = 'https://mw.freepay.dk/api/authorization/';
         $this->dir = $dir;
 
-        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
+        try {
+            $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
+        }
+        catch(\Exception $ex) {
+        }
     }
 
     public function link($form)
@@ -66,7 +71,11 @@ class FreePayCom extends AbstractHelper
         $ch = $this->getCurlHandle($url, $form, $method);
         $data = curl_exec($ch);
         if (!$data) {
-            $this->logger->critical(curl_error($ch));
+            try {
+                $this->logger->critical(curl_error($ch));
+            }
+            catch(\Exception $ex) {
+            }
         }
         curl_close($ch);
 

@@ -150,11 +150,11 @@ class FreePayAdapter
                     'Country'			=> \FreePay\Gateway\Helper\FreePayCom::convertCountryAlphas2ToNumber($billingAddress->getCountryId()),
                 ),
                 'ShippingAddress' 	=> array(
-                    'AddressLine1'		=> $shippingAddress->getStreetLine(1),
-                    'AddressLine2'		=> $shippingAddress->getStreetLine(2),
-                    'City'				=> $shippingAddress->getCity(),
-                    'PostCode'			=> $shippingAddress->getPostcode(),
-                    'Country'			=> \FreePay\Gateway\Helper\FreePayCom::convertCountryAlphas2ToNumber($shippingAddress->getCountryId()),
+                    'AddressLine1'		=> empty($shippingAddress) ? NULL : $shippingAddress->getStreetLine(1),
+                    'AddressLine2'		=> empty($shippingAddress) ? NULL : $shippingAddress->getStreetLine(2),
+                    'City'				=> empty($shippingAddress) ? NULL : $shippingAddress->getCity(),
+                    'PostCode'			=> empty($shippingAddress) ? NULL : $shippingAddress->getPostcode(),
+                    'Country'			=> empty($shippingAddress) ? NULL : \FreePay\Gateway\Helper\FreePayCom::convertCountryAlphas2ToNumber($shippingAddress->getCountryId()),
                 ),
                 'Client'				=> array(
                     'CMS'				=> array(
