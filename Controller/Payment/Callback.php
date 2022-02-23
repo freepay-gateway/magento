@@ -88,8 +88,6 @@ class Callback extends \Magento\Framework\App\Action\Action
         $this->invoiceSender = $invoiceSender;
         $this->client = $client;
 
-        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
-
         parent::__construct($context);
     }
 

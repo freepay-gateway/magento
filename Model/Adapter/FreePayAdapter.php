@@ -110,8 +110,6 @@ class FreePayAdapter
         $this->taxItem = $taxItem;
         $this->client = $comHelper;
         $this->productMetadata = $productMetadata;
-
-        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
     }
 
     /**
