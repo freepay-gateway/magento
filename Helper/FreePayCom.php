@@ -36,13 +36,8 @@ class FreePayCom extends AbstractHelper
 
         $this->api_key = $this->scopeConfig->getValue(self::API_KEY_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $this->api_url = 'https://mw.freepay.dk/api/authorization/';
-        $this->dir = $dir;
-
-        try {
-            $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
-        }
-        catch(\Exception $ex) {
-        }
+        //$this->dir = $dir;
+        //$this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/freepay.log'));
     }
 
     public function link($form)
@@ -71,11 +66,7 @@ class FreePayCom extends AbstractHelper
         $ch = $this->getCurlHandle($url, $form, $method);
         $data = curl_exec($ch);
         if (!$data) {
-            try {
-                $this->logger->critical(curl_error($ch));
-            }
-            catch(\Exception $ex) {
-            }
+            //$this->logger->critical(curl_error($ch));
         }
         curl_close($ch);
 
