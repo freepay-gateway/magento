@@ -23,6 +23,10 @@ class PaymentLogo implements \Magento\Framework\Option\ArrayInterface
             [
                 'value' => 'mastercard',
                 'label' => __('MasterCard')
+            ],
+            [
+                'value' => 'mobilepay',
+                'label' => __('MobilePay')
             ]
         ];
     }
