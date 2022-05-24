@@ -35,7 +35,7 @@ class FreePayCom extends AbstractHelper
         $this->scopeConfig = $scopeConfig;
 
         $this->api_key = $this->scopeConfig->getValue(self::API_KEY_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-        $this->api_url = 'https://mw.freepay.dk/api/authorization/';
+        $this->api_url = 'https://mw.freepay.dk/api/v2/authorization/';
     }
 
     public function link($form)

@@ -169,7 +169,7 @@ class FreePayAdapter
                     ),
                     'API'   			=> array(
                         'Name'			=> "Freepay",
-                        'Version'		=> '1.0'
+                        'Version'		=> '2.0'
                     ),
                 ),
             );
