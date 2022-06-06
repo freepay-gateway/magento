@@ -24,15 +24,14 @@ class CaptureOrderInvoiceAfter implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $invoice = $observer->getEvent()->getInvoice();
+        /*$invoice = $observer->getEvent()->getInvoice();
         $order = $invoice->getOrder();
         $payment = $order->getPayment();
         if ($payment->getMethod() === \FreePay\Gateway\Model\Ui\ConfigProvider::CODE) {
             $captureCase = $invoice->getRequestedCaptureCase();
             if ($payment->canCapture()) {
                 if ($captureCase == \Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE) {
-                    $parts = explode('-', $payment->getLastTransId());
-                    $transaction = $parts[0];
+                    $transaction = str_replace(['-capture', '-refund'], ['', ''], $payment->getTransactionId());
 
                     try {
                         $this->adapter->capture($order, $transaction, $order->getGrandTotal());
@@ -41,6 +40,6 @@ class CaptureOrderInvoiceAfter implements ObserverInterface
                     }
                 }
             }
-        }
+        }*/
     }
 }

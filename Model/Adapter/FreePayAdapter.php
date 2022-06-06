@@ -200,13 +200,14 @@ class FreePayAdapter
      */
     public function capture($order, $transaction, $amount)
     {
-        $this->logger->debug("Capture payment");
+        //$this->logger->debug("Capture payment data:" . $amount . '--' . $transaction);
 
         $form = [
-            'Amount' => round($amount, 2) * 100,
+            'Amount' => intval(round($amount, 2)) * 100,
         ];
 
-        $this->client->post($order->getPayment()->getLastTransId()."/capture", json_encode($form));
+        $res = $this->client->post($transaction."/capture", json_encode($form));
+        //$this->logger->debug("Capture payment result:" . print_r($res, true));
 
         return $this;
     }
@@ -232,13 +233,13 @@ class FreePayAdapter
      */
     public function refund($order, $transaction, $amount)
     {
-        $this->logger->debug("Refund payment");
+        //$this->logger->debug("Refund payment");
 
         $form = [
             'Amount' => (int)(round($amount, 2) * 100),
         ];
 
-        $this->client->post(str_replace(['-capture', '-refund'], ['', ''], $order->getPayment()->getParentTransactionId())."/credit", json_encode($form));
+        $this->client->post($transaction."/credit", json_encode($form));
 
         return $this;
     }

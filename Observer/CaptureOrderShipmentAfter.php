@@ -27,9 +27,8 @@ class CaptureOrderShipmentAfter implements ObserverInterface
 
         $payment = $order->getPayment();
         if ($payment->getMethod() === \FreePay\Gateway\Model\Ui\ConfigProvider::CODE) {
-            $parts = explode('-', $payment->getLastTransId());
             $order = $payment->getOrder();
-            $transaction = $parts[0];
+            $transaction = str_replace(['-capture', '-refund'], ['', ''], $payment->getTransactionId());
 
             try {
                 $this->adapter->capture($order,$transaction, $order->getGrandTotal());

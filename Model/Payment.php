@@ -105,9 +105,8 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $adapter = $objectManager->get(\FreePay\Gateway\Model\Adapter\FreePayAdapter::class);
-        $parts = explode('-',$payment->getTransactionId());
+        $transaction = str_replace(['-capture', '-refund'], ['', ''], $payment->getTransactionId());
         $order = $payment->getOrder();
-        $transaction = $parts[0];
 
         if (!$this->canCapture()) {
             throw new \Magento\Framework\Exception\LocalizedException(__('The capture action is not available.'));
@@ -132,9 +131,8 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $adapter = $objectManager->get(\FreePay\Gateway\Model\Adapter\FreePayAdapter::class);
-        $parts = explode('-',$payment->getTransactionId());
         $order = $payment->getOrder();
-        $transaction = $parts[0];
+        $transaction = str_replace(['-capture', '-refund'], ['', ''], $payment->getTransactionId());
 
         if (!$this->canRefund()) {
             throw new \Magento\Framework\Exception\LocalizedException(__('The refund action is not available.'));

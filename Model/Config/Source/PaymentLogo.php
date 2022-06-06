@@ -27,6 +27,14 @@ class PaymentLogo implements \Magento\Framework\Option\ArrayInterface
             [
                 'value' => 'mobilepay',
                 'label' => __('MobilePay')
+            ],
+            [
+                'value' => 'googlepay',
+                'label' => __('Google Pay')
+            ],
+            [
+                'value' => 'applepay',
+                'label' => __('Apple Pay')
             ]
         ];
     }
