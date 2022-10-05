@@ -273,7 +273,7 @@ class FreePayAdapter
      * @param $transactionId
      * @param $type
      */
-    public function createTransaction($order = null, $transactionId, $type)
+    public function createTransaction($order, $transactionId, $type)
     {
         try {
             //get payment object from order object
