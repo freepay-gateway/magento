@@ -251,21 +251,7 @@ class FreePayAdapter
      */
     private function getLanguage()
     {
-        $locale = $this->resolver->getLocale();
-
-        //Map both norwegian locales to no
-        $map = [
-            'nb' => 'no',
-            'nn' => 'no',
-        ];
-
-        $language = explode('_', $locale)[0];
-
-        if (isset($map[$language])) {
-            return $map[$language];
-        }
-
-        return $language;
+        return str_replace('_', '-', $this->resolver->getLocale());
     }
 
     /**
