@@ -111,8 +111,8 @@ class Callback extends \Magento\Framework\App\Action\Action
         try {
             $this->logger->debug('Body response:' . $body);
             parse_str($body, $response);
-            $this->logger->debug('Parsed response:' . $response);
-            
+            $this->logger->debug('Parsed response:' . print_r($response, 1));
+
             $order = $this->order->loadByIncrementId((int)$_GET["order_id"]);
 
             if($order->getId()) {
