@@ -134,9 +134,8 @@ class Callback extends \Magento\Framework\App\Action\Action
 
             $info = json_decode($this->client->get($transactionId));
 
-            $this->logger->debug('Transaction info:' . print_r($info, 1));
-            $this->logger->debug('Transaction order id:' . print_r($info->OrderID, 1));
-            $this->logger->debug('Magento order id:' . print_r($order->getId(), 1));
+            $this->logger->debug('Transaction order id:' . var_dump($info->OrderID));
+            $this->logger->debug('Magento order id:' . var_dump($order->getId()));
 
             if($info->OrderID != $order->getId()) {
                 $this->logger->debug('OrderID mismatch');
