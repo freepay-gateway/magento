@@ -109,11 +109,9 @@ class Callback extends \Magento\Framework\App\Action\Action
         $this->logger->debug('CALLBACK');
         $body = $this->getRequest()->getContent();
         try {
-            $this->logger->debug('Body response:' . $body);
             parse_str($body, $response);
-            $this->logger->debug('Parsed response:' . print_r($response, 1));
 
-            $order = $this->order->loadByIncrementId((int)$_GET["order_id"]);
+            $order = $this->order->loadByIncrementId($_GET["order_id"]);
 
             if($order->getId()) {
                 if($order->getState() == \Magento\Sales\Model\Order::STATE_PROCESSING){
@@ -121,7 +119,7 @@ class Callback extends \Magento\Framework\App\Action\Action
                 }
             }
             else {
-                $this->logger->debug('Failed to load order with id: ' . (int)$_GET['order_id']);
+                $this->logger->debug('Failed to load order with id: ' . $_GET['order_id']);
                 return;
             }
 
@@ -136,7 +134,11 @@ class Callback extends \Magento\Framework\App\Action\Action
 
             $info = json_decode($this->client->get($transactionId));
 
-            if((int)$info->OrderID != $order->getId()) {
+            $this->logger->debug('Transaction info:' . print_r($info, 1));
+            $this->logger->debug('Transaction order id:' . print_r($info->OrderID, 1));
+            $this->logger->debug('Magento order id:' . print_r($order->getId(), 1));
+
+            if($info->OrderID != $order->getId()) {
                 $this->logger->debug('OrderID mismatch');
                 return;
             }
