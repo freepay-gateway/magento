@@ -136,8 +136,9 @@ class Callback extends \Magento\Framework\App\Action\Action
 
             $this->logger->debug('Transaction order id:' . var_export($info->OrderID, true));
             $this->logger->debug('Magento order id:' . var_export($order->getId(), true));
+            $this->logger->debug('Magento order id:' . var_export($order->getIncrementId(), true));
 
-            if($info->OrderID != $order->getId()) {
+            if($info->OrderID != $order->getId() && $info->OrderID != $order->getIncrementId()) {
                 $this->logger->debug('OrderID mismatch');
                 return;
             }
