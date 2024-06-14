@@ -203,7 +203,7 @@ class FreePayAdapter
         //$this->logger->debug("Capture payment data:" . $amount . '--' . $transaction);
 
         $form = [
-            'Amount' => intval(round($amount, 2)) * 100,
+            'Amount' => intval(round($amount, 2) * 100),
         ];
 
         $res = $this->client->post($transaction."/capture", json_encode($form));
