@@ -172,6 +172,7 @@ class FreePayAdapter
                         'Version'		=> '2.0'
                     ),
                 ),
+                'CustomerEmail'         => $order->getCustomerEmail(),
             );
 
             if($this->scopeConfig->getValue(self::TEST_MODE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
