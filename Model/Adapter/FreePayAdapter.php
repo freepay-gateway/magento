@@ -13,6 +13,7 @@ use Magento\Framework\Module\ResourceInterface;
 use FreePay\FreePay;
 use Zend_Locale;
 use Magento\Sales\Model\ResourceModel\Order\Tax\Item;
+use Magento\Framework\App\ObjectManager;
 
 /**
  * Class FreePayAdapter
