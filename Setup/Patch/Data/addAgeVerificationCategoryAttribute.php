@@ -38,7 +38,7 @@ class addAgeVerificationCategoryAttribute implements DataPatchInterface
         
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Category::ENTITY, 
-            'ageVerification', 
+            'ageVerification2', 
             [
             'type'         => 'int',
             'label'        => 'Age Verification',
