@@ -1,6 +1,6 @@
 <?php
 
-namespace Freepay\Gateway\Model\Config\Source;
+namespace FreePay\Gateway\Model\Config\Source;
 
 use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
 

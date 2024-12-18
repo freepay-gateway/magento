@@ -1,6 +1,6 @@
 <?php
  
-namespace Freepay\Gateway\Setup\Patch\Data;
+namespace FreePay\Gateway\Setup\Patch\Data;
 
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -44,7 +44,7 @@ class addAgeVerificationCategoryAttribute implements DataPatchInterface
             'required'     => false,
             'visible'      => true,
             'default'      => '',
-            'source'       => 'Freepay\Gateway\Model\Config\Source\AgeVerificationOptions::class',
+            'source'       => 'FreePay\Gateway\Model\Config\Source\AgeVerificationOptions',
             'global'       => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
             'group'        => 'General',
             'required'     => false,
