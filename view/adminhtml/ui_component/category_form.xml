@@ -3,7 +3,7 @@
     <fieldset name="general">
         <field name="ageVerification">
             <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Freepay\Payment\Model\Config\Source\AgeVerificationOptions</item>
+                <item name="options" xsi:type="object">Freepay\Gateway\Model\Config\Source\AgeVerificationOptions</item>
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">select</item>
                     <item name="formElement" xsi:type="string">select</item>
