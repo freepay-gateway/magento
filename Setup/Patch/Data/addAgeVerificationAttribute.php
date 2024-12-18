@@ -1,6 +1,6 @@
 <?php
  
-namespace Freepay\Payment\Setup\Patch\Data;
+namespace Freepay\Gateway\Setup\Patch\Data;
 
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;

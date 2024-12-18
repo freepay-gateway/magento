@@ -1,6 +1,6 @@
 <?php
 
-namespace Freepay\Payment\Model\Config\Source;
+namespace Freepay\Gateway\Model\Config\Source;
 
 class Ageverificationmode implements \Magento\Framework\Option\ArrayInterface
 {
