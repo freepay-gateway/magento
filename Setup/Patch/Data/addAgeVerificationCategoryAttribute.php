@@ -35,14 +35,13 @@ class addAgeVerificationCategoryAttribute implements DataPatchInterface
     {
         // @var EavSetup $eavSetup
         $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-        $eavSetup->removeAttribute(\Magento\Catalog\Model\Category::ENTITY,'ageVerification');
-        /*
+        
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Category::ENTITY, 
             'ageVerification', 
             [
             'type'         => 'int',
-            'label'        => 'Aldersvalidering',
+            'label'        => 'Age Verification',
             'input'        => 'select',
             'required'     => false,
             'visible'      => true,
@@ -53,7 +52,6 @@ class addAgeVerificationCategoryAttribute implements DataPatchInterface
             'required'     => false,
 			'is_user_defined' => true,
         ]);
-        */
     }
 
     public static function getDependencies()

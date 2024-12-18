@@ -52,10 +52,9 @@
                     <label>Test mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="ageverification_mode" type="select" translate="label comment" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="ageverification_mode" type="select" translate="label" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Ageverification mode</label>
-                    <source_model>Freepay\Gateway\Model\Config\Source\Ageverificationmode</source_model>
-                    <config_path>payment/freepay/ageverificationmode</config_path>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
         </section>

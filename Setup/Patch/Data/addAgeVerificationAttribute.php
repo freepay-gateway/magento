@@ -33,8 +33,8 @@ class addAgeVerificationAttribute implements DataPatchInterface
     {
         // @var EavSetup $eavSetup
         $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
-        $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY,'ageVerification');
-        /*$eavSetup->addAttribute(
+
+        $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             'ageVerification',
             [
@@ -50,7 +50,7 @@ class addAgeVerificationAttribute implements DataPatchInterface
                 'global'       => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
                 'group'        => 'General',
             ]
-        );*/    
+        );
     }
 
     public static function getDependencies()
