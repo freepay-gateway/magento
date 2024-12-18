@@ -20,6 +20,7 @@ use Magento\Sales\Model\ResourceModel\Order\Tax\Item;
 class FreePayAdapter
 {
     const TEST_MODE_XML_PATH      = 'payment/freepay_gateway/test_mode';
+    const AGE_VERIFICATOIN_MODE_XML_PATH      = 'payment/freepay_gateway/ageverification_mode';
     
     /**
      * @var LoggerInterface
@@ -177,6 +178,51 @@ class FreePayAdapter
 
             if($this->scopeConfig->getValue(self::TEST_MODE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
                 $form["Options"] = array("TestMode" => true);
+            }
+
+            if($this->scopeConfig->getValue(self::AGE_VERIFICATOIN_MODE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
+                $objectManager = ObjectManager::getInstance();
+                $categoryFactory = $objectManager->create(\Magento\Catalog\Model\CategoryFactory::class);
+                $minimumuserage = 0;
+                $orderItems = $order->getAllVisibleItems();
+                
+                if ($orderItems) 
+                {
+                    foreach ($orderItems as $item) 
+                    {
+                        $product_minimumuserage = $item->getProduct()->getData('ageVerification');
+
+                        $category_minimumuserage = 0;
+                        $categoryIds = $item->getProduct()->getCategoryIds();
+                        
+                        if($categoryIds)
+                        {
+                            foreach($categoryIds AS $categoryId)
+                            {
+                                $category = $categoryFactory->create()->load($categoryId);
+                                
+                                if($category->getData('ageVerification') > $category_minimumuserage)
+                                {
+                                    $category_minimumuserage = $category->getData('ageVerification');
+                                }
+                            }        
+                        }
+
+                        if($product_minimumuserage > $minimumuserage)
+                        {
+                            $minimumuserage = $product_minimumuserage;
+                        }
+                        elseif($category_minimumuserage > $minimumuserage)
+                        {
+                            $minimumuserage = $category_minimumuserage;
+                        }
+                    }
+                }
+
+                if($minimumuserage > 0)
+                {
+                    $form['MinCardholderAge'] = $minimumuserage;
+                }
             }
 
             $linkResult = json_decode($this->client->link($form));
