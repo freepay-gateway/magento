@@ -36,7 +36,7 @@ class addAgeVerificationAttribute implements DataPatchInterface
 
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
-            'ageVerification2',
+            'ageVerification',
             [
                 'type'         => 'int',
                 'label'        => 'Age Verification',
@@ -46,7 +46,7 @@ class addAgeVerificationAttribute implements DataPatchInterface
                 'user_defined' => false,
                 'used_in_product_listing' => true,
                 'default'      => '',
-                'source'       => 'Freepay\Gateway\Model\Config\Source\AgeVerificationOptions',
+                'source'       => 'Freepay\Gateway\Model\Config\Source\AgeVerificationOptions::class',
                 'global'       => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
                 'group'        => 'General',
             ]
