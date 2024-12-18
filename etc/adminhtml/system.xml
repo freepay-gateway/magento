@@ -53,7 +53,7 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="ageverification_mode" type="select" translate="label" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Ageverification mode</label>
+                    <label>Age verification mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
