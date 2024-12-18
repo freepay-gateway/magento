@@ -34,23 +34,23 @@ class addAgeVerificationAttribute implements DataPatchInterface
         // @var EavSetup $eavSetup
         $eavSetup = $this->eavSetupFactory->create(['setup' => $this->moduleDataSetup]);
         $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY,'ageVerification');
-            $eavSetup->addAttribute(
-                \Magento\Catalog\Model\Product::ENTITY,
-                'ageVerification',
-                [
-                    'type'         => 'int',
-                    'label'        => 'Age Verification',
-                    'input'        => 'select',
-                    'required'     => false,
-                    'visible'      => true,
-                    'user_defined' => false,
-                    'used_in_product_listing' => true,
-                    'default'      => '',
-                    'source'       => 'Freepay\Gateway\Model\Config\Source\AgeVerificationOptions',
-                    'global'       => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-                    'group'        => 'General',
-                ]
-            );    
+        /*$eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'ageVerification',
+            [
+                'type'         => 'int',
+                'label'        => 'Age Verification',
+                'input'        => 'select',
+                'required'     => false,
+                'visible'      => true,
+                'user_defined' => false,
+                'used_in_product_listing' => true,
+                'default'      => '',
+                'source'       => 'Freepay\Gateway\Model\Config\Source\AgeVerificationOptions',
+                'global'       => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                'group'        => 'General',
+            ]
+        );*/    
     }
 
     public static function getDependencies()
